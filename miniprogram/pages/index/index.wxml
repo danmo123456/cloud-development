@@ -1,3 +1,16 @@
-<!--miniprogram/pages/index/index.wxml-->
-<text>miniprogram/pages/index/index.wxml</text>
-<van-button type="primary">按钮</van-button>
+<van-divider contentPosition="center" customStyle="color: #1989fa;border-color: #1989fa;font-size: 18px;">今日任务</van-divider>
+<van-cell-group>
+<block wx:for="{{tasks}}">
+<van-cell
+  is-link
+  title="{{item.title}}"
+  link-type="navigateTo"
+  url="/pages/taskInfo/taskInfo?={{item._id}}"
+/>
+</block>
+</van-cell-group>
+
+<van-tabbar active="{{ active }}" bind:change="onChange">
+  <van-tabbar-item icon="home-o">首页</van-tabbar-item>
+ <van-tabbar-item icon="user-o">我的</van-tabbar-item>
+</van-tabbar>

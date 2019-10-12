@@ -1,0 +1,27 @@
+<van-cell-group>
+  <van-field
+      value="{{ title }}"
+    required
+    clearable
+    label="任务名："
+    name="title"
+    bind:change="onTitleChange" 
+  
+  />
+  <van-field
+    value="{{ renyuan }}"
+    label="人员配置："
+    required
+    border="{{ false }}"
+    bind:change="onRenYuanChange" 
+  />
+    <van-field
+      value="{{ yaoqiu }}"
+    clearable
+    label="具体要求："
+    bind:change="onYaoQiuChange" 
+    
+  />
+</van-cell-group>
+
+<van-button type="primary" bindclick='submit'>提交</van-button>
