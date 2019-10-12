@@ -1,1 +1,7 @@
-/* miniprogram/pages/index/index.wxss */
+.addTask{
+position: fixed;
+z-index: 100;
+bottom: 20%;
+right: 45%;
+font-size: 80rpx
+}

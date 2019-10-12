@@ -1,2 +1,26 @@
-<!--pages/taskInfo/taskInfo.wxml-->
-<text>pages/taskInfo/taskInfo.wxml</text>
+
+<van-panel title="{{ task.title }}" desc="" status="{{ task.status ==='in-end'?'已完成':'进行中'}}" use-footer-slot>
+  <view>  <van-field
+    value="{{ task.renyuan }}"
+    label="人员配置："
+    readonly
+  
+  />
+    <van-field
+      value="{{ task.yaoqiu }}"
+   readonly
+    label="具体要求："   
+  />
+  <van-cell
+    wx:if="{{task.location}}"
+     label="位置："  
+     icon="location"
+     value="{{ task.location.name }}"
+     bind:click = "viewLocation"
+  />
+  </view>
+  <view slot="footer">
+    
+    <van-button size="small" type="danger">按钮</van-button>
+  </view>
+</van-panel>

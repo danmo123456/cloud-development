@@ -1,16 +1,23 @@
 <van-divider contentPosition="center" customStyle="color: #1989fa;border-color: #1989fa;font-size: 18px;">今日任务</van-divider>
+<navigator url='/pages/addTask/addTask'>
+<van-icon name="add-o" class="addTask"  />
+</navigator>
+
 <van-cell-group>
 <block wx:for="{{tasks}}">
 <van-cell
   is-link
   title="{{item.title}}"
   link-type="navigateTo"
-  url="/pages/taskInfo/taskInfo?={{item._id}}"
+  url="/pages/taskInfo/taskInfo?id={{item._id}}"
 />
 </block>
+
 </van-cell-group>
 
-<van-tabbar active="{{ active }}" bind:change="onChange">
-  <van-tabbar-item icon="home-o">首页</van-tabbar-item>
- <van-tabbar-item icon="user-o">我的</van-tabbar-item>
-</van-tabbar>
+<!-- 需要使用 button 来授权登录 -->
+<button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+<!-- <van-tabbar active="{{ active }}" bind:change="onChange">
+  <van-tabbar-item name="home" icon="home-o">首页</van-tabbar-item>
+ <van-tabbar-item name="me" icon="user-o">我的</van-tabbar-item>
+</van-tabbar> -->

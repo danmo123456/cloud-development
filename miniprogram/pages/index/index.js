@@ -2,8 +2,11 @@ const db = wx.cloud.database();
 const tasks = db.collection('Tasks');
 Page({
   data:{
-   tasks:[]
+   tasks:[],
+   active:'home',
+    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
+  
 onLoad:function(options){
    this.getData();
   //  tasks.get().then(res=>{
@@ -11,7 +14,24 @@ onLoad:function(options){
   //      tasks:res.data
   //    })
   //  })
+  // 查看是否授权
+  wx.getSetting({
+    success(res) {
+      if (res.authSetting['scope.userInfo']) {
+        // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+        wx.getUserInfo({
+          success: function (res) {
+            console.log(res.userInfo)
+          }
+        })
+      }
+    }
+  })
 },
+  bindGetUserInfo(e) {
+    console.log(e.detail.userInfo)
+  }
+,
 
 //触底刷新
 onReachBottom:function(){
@@ -21,13 +41,17 @@ onReachBottom:function(){
 //下拉刷新
 onPullDownRefresh:function(){
     
-    this.getData(res=>{
-      this.data.tasks = [];
-      this.pageData.skip = 0;
-    wx.stopPullDownRefresh();     
-    
-    
-    });
+    // this.getData(res=>{
+    //   this.data.tasks = [];
+    //   this.pageData.skip = 0;
+    // wx.stopPullDownRefresh();     
+    // });
+    tasks.get().then(res=>{
+      this.setData({
+        tasks:res.data
+      })
+      wx.stopPullDownRefresh();
+    })
 },
 getData:function(callback){
   if(!callback){
@@ -70,5 +94,6 @@ getData:function(callback){
 pageData:{
   skip:0
 }
+
 
 })

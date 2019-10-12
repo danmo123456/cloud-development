@@ -6,22 +6,53 @@ data:{
   renyuan:'',
   yaoqiu:''
 },
-  submit: function () {
-  
-    // console.log(this.data.title);
-    // console.log(this.data.renyuan);
-    // console.log(this.data.yaoqiu);
+pageData:{
+
+},
+  chooseLocation:function(e){
+     wx.chooseLocation({
+       success:res=>{
+         //console.log(res);
+         let locationObj={
+           latitude: res.latitude,
+           longitude: res.longitude,
+           name: res.name,
+           address: res.address
+
+         }
+         this.pageData.locationObj = locationObj
+       }
+     })
+  },
+
+
+  submit: function (event) {
+    console.log(event)
+
     tasks.add({
       data:{
         title: this.data.title,
         renyuan: this.data.renyuan,
-        yaoqiu: this.data.yaoqiu
+        yaoqiu: this.data.yaoqiu,
+        location:this.pageData.locationObj
       }
     }).then(res=>{
       //console.log(res);
+      wx.cloud.callFunction({
+        name:'msgMe',
+        data:{
+          formId:event.detail.formId,
+          taskId:res._id
+        }
+      }).then(console.log)
       wx.showToast({
         title: '任务创建成功',
-        icon:'success'
+        icon:'success',
+        success:res2=>{
+          wx.redirectTo({
+            url: `../index/index`,
+          })
+        }
       })
     })
   },

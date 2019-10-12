@@ -1,3 +1,4 @@
+<form bindsubmit="submit" report-submit="{{true}}">
 <van-cell-group>
   <van-field
       value="{{ title }}"
@@ -22,6 +23,9 @@
     bind:change="onYaoQiuChange" 
     
   />
-</van-cell-group>
 
-<van-button type="primary" bindclick='submit'>提交</van-button>
+</van-cell-group>
+<van-button type="primary" bindclick='chooseLocation'>选择位置</van-button>
+
+<button form-type="submit" >提交</button>
+</form>

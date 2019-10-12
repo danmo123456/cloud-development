@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/addTask/addTask",
-    "pages/taskInfo/taskInfo"
+    "pages/taskInfo/taskInfo",
+    "pages/me/me"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -18,8 +19,27 @@
     "van-cell-group": "vant-weapp/cell-group",
     "van-divider": "vant-weapp/divider",
     "van-tabbar": "vant-weapp/tabbar",
-    "van-tabbar-item": "vant-weapp/tabbar-item"
+    "van-tabbar-item": "vant-weapp/tabbar-item",
+    "van-panel": "vant-weapp/panel",
+    "van-icon": "vant-weapp/icon"
   },
+    "permission": {
+      "scope.userLocation": {
+        "desc": "你的位置信息将用于任务的设定" 
+      }
+    },
+    "tabBar": {
+      "list": [
+        {
+          "pagePath": "pages/index/index",
+          "text": "首页"
+        },
+        {
+          "pagePath": "pages/me/me",
+          "text": "我的"
+        }
+      ]
+    },
   "sitemapLocation": "sitemap82.json"
   
 }

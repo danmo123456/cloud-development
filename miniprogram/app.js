@@ -14,7 +14,24 @@ App({
         traceUser: true,
       })
     }
-
     this.globalData = {}
+  },
+  onChange: function (event) {
+    this.setData({
+      active: event.detail
+    }, res => {
+      if (event.detail === 'me') {
+        wx.switchTab({
+          url: `../me/me`,
+        })
+      } else {    
+        wx.switchTab({
+          url: `../index/index`,
+        })
+      
+      }
+    })
   }
+
+  
 })

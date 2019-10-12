@@ -42,7 +42,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 3,
 			"list": [
 				{
 					"id": -1,
@@ -54,6 +54,13 @@
 					"id": -1,
 					"name": "addTask",
 					"pathName": "pages/addTask/addTask",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/taskInfo/taskInfo",
+					"pathName": "pages/taskInfo/taskInfo",
 					"query": "",
 					"scene": null
 				},
