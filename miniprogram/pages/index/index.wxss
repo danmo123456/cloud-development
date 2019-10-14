@@ -5,3 +5,20 @@ bottom: 20%;
 right: 45%;
 font-size: 80rpx
 }
+
+/* .van-swipe-cell{
+  height: 600rpx;
+  line-height: 600rpx;
+  background-color: red
+} */
+
+.van-swipe-cell__right {
+  display: inline-block;
+  width: 65px;
+  height: 44px;
+  font-size: 15px;
+  line-height: 44px;
+  color: #fff;
+  text-align: center;
+  background-color: #f44;
+}

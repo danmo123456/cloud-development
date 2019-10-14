@@ -1,1 +1,11 @@
-/* pages/me/me.wxss */
+.container{
+  background-color: beige;
+  height: 110rpx
+}
+.ima{
+  width: 110rpx;
+  border-radius: 50%
+}
+.userName{
+  margin-top: 15rpx
+}

@@ -1,2 +1,21 @@
-<open-data type="userAvatarUrl"></open-data>
-<open-data type="userNickName"></open-data>
+<view class="container">
+<van-row >
+  <van-col span="4" offset="1" ><view class="ima"><open-data type="userAvatarUrl" ></open-data></view></van-col>
+  <van-col span="11" offset="2" ><open-data type="userNickName"></open-data></van-col>
+  <van-col span="8">
+  <van-row >
+  <view class="userName">
+  <van-col span="22" offset="2" ><open-data type="userProvince" lang="zh_CN"></open-data>-<open-data type="userCity" lang="zh_CN"></open-data></van-col>
+  </view>
+</van-row>
+</van-col>
+</van-row>
+</view>
+<van-cell
+  icon="smile-o"
+  is-link
+  title="已完成任务"
+  link-type="navigateTo"
+  url="/pages/finish/finish"
+/>
+

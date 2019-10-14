@@ -3,20 +3,31 @@
 <van-icon name="add-o" class="addTask"  />
 </navigator>
 
-<van-cell-group>
+<van-cell-group >
+
 <block wx:for="{{tasks}}">
-<van-cell
+
+<van-swipe-cell  id="swipe-cell" right-width="{{ 65 }}" left-width="{{1}}" async-close bind:close="onClose" name="{{item._id}}">
+  <van-cell-group>
+    <van-cell 
   is-link
   title="{{item.title}}"
   link-type="navigateTo"
   url="/pages/taskInfo/taskInfo?id={{item._id}}"
-/>
+  value="内容"
+    />
+  </van-cell-group>
+  <view slot="right" >已完成</view>
+</van-swipe-cell>
+
 </block>
 
 </van-cell-group>
 
+
+
 <!-- 需要使用 button 来授权登录 -->
-<button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+<!-- <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button> -->
 <!-- <van-tabbar active="{{ active }}" bind:change="onChange">
   <van-tabbar-item name="home" icon="home-o">首页</van-tabbar-item>
  <van-tabbar-item name="me" icon="user-o">我的</van-tabbar-item>

@@ -1,5 +1,6 @@
 const db = wx.cloud.database();
 const tasks = db.collection('Tasks');
+
 Page({
 data:{
   title:'',
@@ -34,7 +35,8 @@ pageData:{
         title: this.data.title,
         renyuan: this.data.renyuan,
         yaoqiu: this.data.yaoqiu,
-        location:this.pageData.locationObj
+        location:this.pageData.locationObj,
+        status: "in-progress"
       }
     }).then(res=>{
       //console.log(res);
@@ -49,8 +51,8 @@ pageData:{
         title: '任务创建成功',
         icon:'success',
         success:res2=>{
-          wx.redirectTo({
-            url: `../index/index`,
+          wx.switchTab({
+            url: '/pages/index/index'
           })
         }
       })
