@@ -3,14 +3,16 @@ position: fixed;
 z-index: 100;
 bottom: 20%;
 right: 45%;
-font-size: 80rpx
+font-size: 80rpx;
 }
-
-/* .van-swipe-cell{
-  height: 600rpx;
-  line-height: 600rpx;
-  background-color: red
-} */
+.addTask1{
+  display: none;
+}
+.van-swipe-cell{
+  height: 66px;
+  line-height: 66px;
+  
+}
 
 .van-swipe-cell__right {
   display: inline-block;
@@ -20,5 +22,5 @@ font-size: 80rpx
   line-height: 44px;
   color: #fff;
   text-align: center;
-  background-color: #f44;
+  background-color: #07c160;
 }

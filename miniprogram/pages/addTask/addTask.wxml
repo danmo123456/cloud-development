@@ -1,7 +1,7 @@
 <form bindsubmit="submit" report-submit="{{true}}">
 <van-cell-group>
   <van-field
-      value="{{ title }}"
+    value="{{ title }}"
     required
     clearable
     label="任务名："
@@ -13,7 +13,6 @@
     value="{{ renyuan }}"
     label="人员配置："
     required
-    border="{{ false }}"
     bind:change="onRenYuanChange" 
   />
     <van-field
@@ -21,11 +20,19 @@
     clearable
     label="具体要求："
     bind:change="onYaoQiuChange" 
-    
+    border="{{ false }}"
   />
 
 </van-cell-group>
-<van-button type="primary" bindclick='chooseLocation'>选择位置</van-button>
+<van-row>
+  <van-col span="6"><van-button  plain type="primary" bindtap="chooseImage">添加图片</van-button></van-col>
+  <van-col span="4" offset="14" ><image src="{{image}}" bindtap="previewImage"></image></van-col>
+</van-row>
+<!-- <van-divider contentPosition="center" customStyle="color: #1989fa;border-color: #1989fa;font-size: 18px;"></van-divider> -->
+<van-row>
+  <van-col span="6"><van-button type="primary" bindclick='chooseLocation'>选择位置</van-button></van-col>
+  <van-col span="18" ><van-cell value="{{locationObj.name}}"></van-cell></van-col>
+</van-row>
 
 <button form-type="submit" >提交</button>
 </form>

@@ -1,1 +1,7 @@
 /* pages/taskInfo/taskInfo.wxss */
+image{
+  float:left;
+	width:45%;
+	height:200px;
+	margin:2%;
+}

@@ -28,7 +28,9 @@
     "van-row": "vant-weapp/row",
     "van-col": "vant-weapp/col",
     "van-swipe-cell": "vant-weapp/swipe-cell",
-    "van-dialog": "vant-weapp/dialog"
+    "van-dialog": "vant-weapp/dialog",
+    "van-search": "vant-weapp/search",
+    "van-notice-bar": "/vant-weapp/notice-bar"
   },
   "permission": {
     "scope.userLocation": {
@@ -39,10 +41,14 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "首页"
+        "iconPath": "images/tabar/home/home-qian.png",
+        "selectedIconPath":"images/tabar/home/home-hou.png",
+         "text":"首页"
       },
       {
         "pagePath": "pages/me/me",
+        "iconPath": "images/tabar/me/me-qian.png",
+        "selectedIconPath": "images/tabar/me/me-hou.png",
         "text": "我的"
       }
     ]

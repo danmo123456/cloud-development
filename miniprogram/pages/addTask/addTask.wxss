@@ -1,0 +1,5 @@
+image{
+	width:50%;
+	height:100rpx;
+  margin-right:50rpx;
+}

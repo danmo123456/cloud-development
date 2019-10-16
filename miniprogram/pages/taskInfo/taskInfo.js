@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    task:{}
+    task:{},
+    imageList:[]
   },
   pageData:{
 
@@ -18,10 +19,12 @@ Page({
      this.pageData.id = options.id;
      tasks.doc(options.id).get().then(res=>{
       this.setData({
-        task:res.data
+        task:res.data,
+        imageList:[res.data.image]
       })
     })
   },
+  //导航路径
   viewLocation:function(){
     wx.openLocation({
       latitude: this.data.task.location.latitude,
@@ -30,6 +33,17 @@ Page({
       address: this.data.task.location.address
     })
     // console.log("aa")
+  },
+  /** 
+	 * 预览图片
+	 */
+  previewImage: function (e) {
+    
+    wx.previewImage({
+      
+      urls: this.data.imageList // 需要预览的图片http链接列表
+    })
   }
+ 
 
 })

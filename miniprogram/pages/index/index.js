@@ -7,9 +7,19 @@ Page({
    tasks:[],
    active:'home',
    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+   realName:''
   },
+  //加载
 onLoad:function(options){
-   this.getData();
+  
+  this.getData(res=>{
+    console.log(app.globalData.openid)
+    if (!app.globalData.openid){
+      wx.redirectTo({
+        url: '../authorize/authorize',
+      })
+    }
+  });
   },
   
 //触底刷新
@@ -21,7 +31,7 @@ onReachBottom:function(){
 onPullDownRefresh:function(){
   tasks.where({
     status: "in-progress",
-    renyuan: this.pageData.realName
+    renyuan: this.data.realName
   }).get().then(res => {
     this.setData({
       tasks: res.data
@@ -30,28 +40,29 @@ onPullDownRefresh:function(){
   })
   
 },
-  //获取用户信息接口
+  //获取数据以及用户信息接口
   getData: function (callback) {
+    console.log("www"+app.globalData.openid)
     userInfos.where({
-      openid: app.globalData.openid
+      _openid: app.globalData.openid
     })
       .get({
         success: res => {
           let realName = res.data[0].realName;
-          this.pageData.realName = realName;
-          console.log("sss"+this.pageData.realName)
+            this.setData({
+              realName: realName
+            })
+          
+          console.log("sss"+this.data.realName)
           if (!callback) {
             callback = res => { };
           }
-
           wx.showLoading({
             title: '数据加载中',
           })
           tasks.where({
             status: "in-progress",
-            renyuan: this.pageData.realName
-           
-
+            renyuan: this.data.realName
           }).skip(this.pageData.skip).get()
             .then(res => {
               let oldData = this.data.tasks;
@@ -89,8 +100,9 @@ pageData:{
   skip:0,
   
 },
+//右滑点击事件（已完成）
   onClose(event) {
-    console.log(event.detail.name)
+    console.log(event.detail)
     const { position, instance } = event.detail;
     switch (position) {
       case 'left':
@@ -100,14 +112,45 @@ pageData:{
       case 'right':
         tasks.doc(event.detail.name).update({
           // data 传入需要局部更新的数据
-          data: {
-            // 表示将 done 字段置为 true
-           progress:"end"
+          data: {       
+           status:"end"
           }
         })
-          .then(console.log)
+          .then(res=>{
+            this.onPullDownRefresh()
+          })
           .catch(console.error)
+        instance.close()
         break;
+    }
+  },
+  //搜索（title）
+  onSearch:function(event){
+    console.log(event.detail);
+    tasks.where({
+      title:db.RegExp({
+        regexp: event.detail,
+        option:'i'
+      }) ,
+      status: "in-progress",
+      renyuan: this.data.realName
+    }).get().then(res => {
+      this.setData({
+        tasks: res.data
+      })
+    
+    })
+  },
+  onSearchChange:function(event){
+    if(!event.detail){
+      tasks.where({
+        status: "in-progress",
+        renyuan: this.data.realName
+      }).get().then(res => {
+        this.setData({
+          tasks: res.data
+        })
+      })
     }
   }
 

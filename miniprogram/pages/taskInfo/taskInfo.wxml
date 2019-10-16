@@ -20,5 +20,8 @@
   />
   </view>
   <view slot="footer">
+  <block wx:if="{{task.image}}">
+  <image src="{{task.image}}" bindtap="previewImage"></image>
+  </block>
   </view>
 </van-panel>

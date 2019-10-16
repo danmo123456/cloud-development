@@ -1,2 +1,21 @@
-<!--pages/finish/finish.wxml-->
-<text>pages/finish/finish.wxml</text>
+<van-divider contentPosition="center" customStyle="color: #1989fa;border-color: #1989fa;font-size: 18px;">已完成任务</van-divider>
+
+<van-cell-group >
+
+<block wx:for="{{tasks}}">
+
+
+  <van-cell-group>
+    <van-cell 
+  is-link
+  title="{{item.title}}"
+  link-type="navigateTo"
+  url="/pages/taskInfo/taskInfo?id={{item._id}}"
+  value="内容"
+    />
+
+
+ </van-cell-group>
+</block>
+
+</van-cell-group>
