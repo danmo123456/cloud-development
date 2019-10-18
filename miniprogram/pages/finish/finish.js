@@ -33,7 +33,7 @@ Page({
   //获取用户信息接口
   getData: function (callback) {
     userInfos.where({
-      openid: app.globalData.openid
+      _openid: app.globalData.openid
     })
       .get({
         success: res => {
@@ -50,8 +50,6 @@ Page({
           tasks.where({
             status: "end",
             renyuan: this.pageData.realName
-
-
           }).skip(this.pageData.skip).get()
             .then(res => {
               let oldData = this.data.tasks;

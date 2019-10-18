@@ -1,9 +1,4 @@
-<!-- <van-divider contentPosition="center" customStyle="color: #1989fa;border-color: #1989fa;font-size: 18px;">今日任务</van-divider> -->
-<van-notice-bar
-left-icon="volume-o"
-  mode="closeable"
-  text="欢迎{{realName}}来到任务帮，在这里您可以开启便捷办公之旅。。。。。。。。。。。"
-/>
+
 <van-search
   value="{{ value }}"
   placeholder="请输入搜索关键词"
@@ -12,7 +7,8 @@ left-icon="volume-o"
   
 />
 <navigator url='/pages/addTask/addTask'>
-<van-icon name="add-o" class="{{realName === '吴俊澎' ?'addTask':'addTask1'}}"  />
+<!-- <van-icon name="add-o" class="addTask"  /> -->
+<button class="addTask">添加任务</button>
 </navigator>
 <van-cell-group >
 <block wx:for="{{tasks}}" wx:key="_id">
@@ -30,9 +26,3 @@ left-icon="volume-o"
 </van-swipe-cell>
 </block>
 </van-cell-group>
-<!-- 需要使用 button 来授权登录 -->
-<!-- <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button> -->
-<!-- <van-tabbar active="{{ active }}" bind:change="onChange">
-  <van-tabbar-item name="home" icon="home-o">首页</van-tabbar-item>
- <van-tabbar-item name="me" icon="user-o">我的</van-tabbar-item>
-</van-tabbar> -->

@@ -9,6 +9,7 @@
 		"minified": true,
 		"newFeature": true,
 		"coverView": true,
+		"nodeModules": true,
 		"autoAudits": false,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
@@ -17,14 +18,14 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		},
-		"nodeModules": true
+		}
 	},
 	"appid": "wxf6a993c3ffcd50ea",
 	"projectname": "Task",
 	"libVersion": "2.8.3",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
+	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
 	"condition": {
 		"search": {
 			"current": -1,
@@ -41,8 +42,12 @@
 		"game": {
 			"list": []
 		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
-			"current": 7,
+			"current": -1,
 			"list": [
 				{
 					"id": -1,
@@ -52,22 +57,8 @@
 				},
 				{
 					"id": -1,
-					"name": "addTask",
+					"name": "pages/addTask/addTask",
 					"pathName": "pages/addTask/addTask",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/taskInfo/taskInfo",
-					"pathName": "pages/taskInfo/taskInfo",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/taskInfo/taskInfo",
-					"pathName": "pages/taskInfo/taskInfo",
 					"query": "",
 					"scene": null
 				},
@@ -75,27 +66,6 @@
 					"id": -1,
 					"name": "pages/authorize/authorize",
 					"pathName": "pages/authorize/authorize",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/me/me",
-					"pathName": "pages/me/me",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/finish/finish",
-					"pathName": "pages/finish/finish",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/addTask/addTask",
-					"pathName": "pages/addTask/addTask",
 					"scene": null
 				}
 			]

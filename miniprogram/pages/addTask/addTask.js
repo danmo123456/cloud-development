@@ -4,7 +4,7 @@ const tasks = db.collection('Tasks');
 Page({
 data:{
   title:'',
-  renyuan:'',
+  renyuan:[],
   yaoqiu:'',
   image:'',
  imageList:[]
@@ -61,6 +61,7 @@ wx.chooseImage({
             renyuan: this.data.renyuan,
             yaoqiu: this.data.yaoqiu,
             location: this.data.locationObj,
+            image: this.data.image,
             status: "in-progress"
           }
         }).then(res => {
@@ -79,7 +80,7 @@ wx.chooseImage({
               //成功之后情况输入框等信息
               this.setData({
                 title: '',
-                renyuan: '',
+                renyuan: [],
                 yaoqiu: '',
                 locationObj: {},
               })
@@ -101,7 +102,6 @@ wx.chooseImage({
           renyuan: this.data.renyuan,
           yaoqiu: this.data.yaoqiu,
           location: this.data.locationObj,
-          image: this.data.image,
           status: "in-progress"
         }
       }).then(res => {
@@ -120,7 +120,7 @@ wx.chooseImage({
             //成功之后情况输入框等信息
             this.setData({
               title: '',
-              renyuan: '',
+              renyuan: [],
               yaoqiu: '',
               locationObj: {},
               image: '',
@@ -148,12 +148,12 @@ wx.chooseImage({
   },
   //人员输入框内容
   onRenYuanChange: function (event) {
-    this.setData({
-    
-      renyuan: event.detail
-      
-    });
-    // console.log(this.data.title);
+    var sArr = event.detail.split(" ");
+    this.data.renyuan=sArr
+    // this.setData({
+    //   renyuan: event.detail,
+
+    // });
   },
   //要求输入框的内容
   onYaoQiuChange: function (event) {

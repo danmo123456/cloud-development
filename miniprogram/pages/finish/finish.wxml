@@ -2,7 +2,7 @@
 
 <van-cell-group >
 
-<block wx:for="{{tasks}}">
+<block wx:for="{{tasks}}"  wx:key="_id">
 
 
   <van-cell-group>

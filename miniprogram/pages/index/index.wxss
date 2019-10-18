@@ -1,9 +1,9 @@
 .addTask{
 position: fixed;
+width: 100%;
 z-index: 100;
-bottom: 20%;
-right: 45%;
-font-size: 80rpx;
+bottom: 1%;
+background: linear-gradient(to right,#ec008c,#6739b6)
 }
 .addTask1{
   display: none;

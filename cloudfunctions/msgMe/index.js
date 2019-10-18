@@ -14,12 +14,6 @@ const tasks = db.collection('Tasks');
 // 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
-  // return {
-  //   event,
-  //   openid: wxContext.OPENID,
-  //   appid: wxContext.APPID,
-  //   unionid: wxContext.UNIONID,
-  // }
   // 获取 access_token
   let wXMINIUser = new WXMINIUser({
     appId,
@@ -27,8 +21,9 @@ exports.main = async (event, context) => {
   });
 
   let access_token = await wXMINIUser.getAccessToken();
-
-  const touser = wxContext.OPENID; // 小程序用户 openId，从用户端传过来，指明发送消息的用户
+   const touser = wxContext.OPENID; // 小程序用户 openId，从用户端传过来，指明发送消息的用户
+  console.log(wxContext.OPENID)
+  //const touser = 'ozufX5VFo1-94YoATRb4n8E0O0Y0',
   const form_id = event.formId; // 小程序表单的 form_id，或者是小程序微信支付的 prepay_id
   let task= await tasks.doc(event.taskId).get();
 //  return task;
