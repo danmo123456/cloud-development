@@ -24,3 +24,15 @@ background: linear-gradient(to right,#ec008c,#6739b6)
   text-align: center;
   background-color: #07c160;
 }
+.van-swipe-cell__left {
+  display: inline-block;
+  width: 65px;
+  height: 44px;
+  font-size: 15px;
+  line-height: 44px;
+  color: #fff;
+  text-align: center;
+  background-color: #dd4c4c;
+}
+
+

@@ -7,7 +7,7 @@ Page({
    */
   data: {
     task:{},
-    imageList:[]
+    images:[]
   },
   pageData:{
 
@@ -18,11 +18,13 @@ Page({
   onLoad: function (options) {
      this.pageData.id = options.id;
      tasks.doc(options.id).get().then(res=>{
+       console.log(res.data.image)
       this.setData({
         task:res.data,
-        imageList:[res.data.image]
+        images:res.data.image
       })
     })
+   
   },
   //导航路径
   viewLocation:function(){
@@ -37,11 +39,15 @@ Page({
   /** 
 	 * 预览图片
 	 */
-  previewImage: function (e) {
-    
+previewImage: function (e) {
+    //console.log(task.image)
+    const currentIndex = e.currentTarget.dataset.index;
+    // 获取当前被点击的图片的实际地址
+    const currentUrl = this.data.task.image[currentIndex]
+ 
     wx.previewImage({
-      
-      urls: this.data.imageList // 需要预览的图片http链接列表
+      current: currentUrl,
+      urls: this.data.task.image // 需要预览的图片http链接列表
     })
   }
  

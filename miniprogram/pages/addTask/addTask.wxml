@@ -13,26 +13,40 @@
     value="{{ renyuan }}"
     label="人员配置："
     required
+     placeholder="测试时请输入微信昵称"
     bind:change="onRenYuanChange" 
   />
     <van-field
       value="{{ yaoqiu }}"
     clearable
+     type="textarea"
+      autosize
     label="具体要求："
     bind:change="onYaoQiuChange" 
     border="{{ false }}"
   />
 
 </van-cell-group>
-<van-row>
-  <van-col span="6"><van-button  plain type="primary" bindtap="chooseImage">添加图片</van-button></van-col>
-  <van-col span="4" offset="14" ><image src="{{image}}" bindtap="previewImage"></image></van-col>
-</van-row>
 <!-- <van-divider contentPosition="center" customStyle="color: #1989fa;border-color: #1989fa;font-size: 18px;"></van-divider> -->
+
 <van-row>
   <van-col span="6"><van-button type="primary" bindclick='chooseLocation'>选择位置</van-button></van-col>
   <van-col span="18" ><van-cell value="{{locationObj.name}}"></van-cell></van-col>
 </van-row>
+<view class="subbtn">
+ <van-row>
+  <van-col span="6"><van-button  plain type="primary" bindtap="chooseImage">添加图片</van-button></van-col>
+  </van-row>
+   <van-row >
+  <van-col span="24">
+    <block wx:for="{{image}}" wx:for-item="image" wx:for-index="idx" wx:key="{{idx}}">
+  <image  class="weui-uploader__img" src="{{image.src}}" data-src="{{image}}" bindtap="previewImage" data-index="{{idx}}" bindlongpress="longpress"></image>
+   </block>
+</van-col>
+</van-row>
+</view>
 
-<button form-type="submit" >提交</button>
+<view class="subbtn">
+   <button type="primary" form-type="submit">提交</button>
+  </view>
 </form>

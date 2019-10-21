@@ -7,6 +7,7 @@ Page({
    tasks:[],
    active:'home',
    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+  createTaskopenid:''
   },
   //加载
 onLoad:function(options){
@@ -17,7 +18,8 @@ onLoad:function(options){
     //renyuan: app.globalData.realName
   }).get().then(res => {
     this.setData({
-      tasks: res.data
+      tasks: res.data,
+      
     })
   }) 
   })
@@ -34,9 +36,12 @@ onLoad:function(options){
       })
     }
     const userInfo = userInfos.data[0]
-    app.globalData.hasUser = true;
-    app.globalData._openid = userInfo._openid;
-    app.globalData.realName = userInfo.realName
+    app.globalData.hasUser = true
+    app.globalData._openid = userInfo._openid
+    app.globalData.realName = userInfo.realName;
+    this.setData({
+      createTaskopenid: userInfo._openid
+    })
   },
 //触底刷新
 onReachBottom:function(){
@@ -109,22 +114,26 @@ pageData:{
     const { position, instance } = event.detail;
     switch (position) {
       case 'left':
+        console.log(event.detail.name)
+        tasks.doc(event.detail.name).remove().then(res=>{
+          instance.close()
+          this.onPullDownRefresh()
+        })
+          .catch(console.error)
       case 'cell':
         instance.close();
         break;
       case 'right':
-        tasks.doc(event.detail.name).update({
-          // data 传入需要局部更新的数据
-          data: {       
-           status:"end"
+        wx.cloud.callFunction({
+          name:'updata',
+          data:{
+            taskId:event.detail.name
           }
+        }).then(res=>{
+          instance.close()
+          this.onPullDownRefresh()
         })
-          .then(res=>{
-            this.onPullDownRefresh()
-          })
-          .catch(console.error)
-        instance.close()
-        break;
+       
     }
   },
   //搜索（title）

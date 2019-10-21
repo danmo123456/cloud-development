@@ -6,19 +6,30 @@ data:{
   title:'',
   renyuan:[],
   yaoqiu:'',
-  image:'',
- imageList:[]
+  image:[],
+ //imageList:[]
 },
 pageData:{
 
 },
 chooseImage:function(e){
   console.log(e)
+  const items = this.data.image
 wx.chooseImage({
+  count: 9,
+  sizeType: ['original', 'compressed'],
+  sourceType: ['album', 'camera'],
   success: res=> {
+    // tempFilePath可以作为img标签的src属性显示图片
+    const tempFilePaths = res.tempFilePaths
+    for (const tempFilePath of tempFilePaths) {
+      items.push({
+        src: tempFilePath
+      })
+    }
     this.setData({
-      image: res.tempFilePaths[0],
-      imageList: [res.tempFilePaths[0]]
+      image: items,
+      //imageList: items
     })
   },
 })
@@ -41,18 +52,34 @@ wx.chooseImage({
        }
      })
   },
-
+  // 上传图片
+  uploadPhoto(filePath) {
+    return wx.cloud.uploadFile({
+      cloudPath: `${Date.now()}-${Math.floor(Math.random(0, 1) * 1000)}.png`,
+      filePath
+    })
+  },
 //点击提交任务信息
   submit: function (event) {
     console.log(event)
     //添加图片
     if (this.data.image){
-      wx.cloud.uploadFile({
-        cloudPath: `${Math.floor(Math.random() * 10000000)}.png`,
-        filePath: this.data.image
-      }).then(res => {
+      const uploadTasks = this.data.image.map(item => this.uploadPhoto(item.src))
+
+
+      // wx.cloud.uploadFile({
+      //   cloudPath: `${Math.floor(Math.random() * 10000000)}.png`,
+      //   filePath: this.data.image.map(item => (item.src))
+      // })
+      Promise.all(uploadTasks).then(res => {
+        let imageList = []
+        console.log(res)
+        for (const p in res){
+          imageList.push(res[p].fileID)
+        }
+        console.log(imageList)
         this.setData({
-          image: res.fileID
+          image: imageList
         })
         //添加任务
         tasks.add({
@@ -165,11 +192,43 @@ wx.chooseImage({
   /** 
 	 * 预览图片
 	 */
-  previewImage: function (e) {
+  async  previewImage (e) {
+    const current = e.target.dataset.src
+    const photos = this.data.image.map(photo => photo.src)
 
     wx.previewImage({
+      current: current.src,
+      urls: photos // 需要预览的图片http链接列表
+    })
+  },
+      // 删除图片
+  //   cancel(e) {
+  //   const index = e.currentTarget.dataset.index
+  //     const image= this.data.image.filter((p, idx) => idx !== index)
 
-      urls: this.data.imageList // 需要预览的图片http链接列表
+  //   this.setData({
+  //     image: image
+  //   })
+  // },
+
+  // 长按事件
+  longpress(e) {
+    const index = e.currentTarget.dataset.index
+
+    // 展示操作菜单
+    wx.showActionSheet({
+      itemList: ['删除照片'],
+      success: res => {
+     
+          //this.deleteFile(imgIndex)
+          const image = this.data.image.filter((p, idx) => idx !== index)
+          this.setData({
+            image: image
+          });
+          console.log("sss")
+        
+      }
     })
   }
 })
+    

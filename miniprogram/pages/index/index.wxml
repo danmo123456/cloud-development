@@ -12,7 +12,8 @@
 </navigator>
 <van-cell-group >
 <block wx:for="{{tasks}}" wx:key="_id">
-<van-swipe-cell  id="swipe-cell" right-width="{{ 65 }}" left-width="{{1}}" async-close bind:close="onClose" name="{{item._id}}" >
+<van-swipe-cell  id="swipe-cell" right-width="{{ 65 }}" left-width="{{createTaskopenid===item._openid?65:1}}" async-close bind:close="onClose" name="{{item._id}}" >
+ <view slot="left">删除</view>
   <van-cell-group>
      <van-cell 
   is-link
@@ -22,7 +23,9 @@
   value="内容"
     />
   </van-cell-group>
+
   <view slot="right" >已完成</view>
+  
 </van-swipe-cell>
 </block>
 </van-cell-group>

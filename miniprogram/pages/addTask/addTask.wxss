@@ -1,5 +1,20 @@
-image{
-	width:50%;
-	height:100rpx;
-  margin-right:50rpx;
+.weui-uploader__img{
+  float: left;
+  width: 100px;
+  height: 100px;
+  margin: 10px
 }
+.cancel {
+    position: absolute;
+    top: 15rpx;
+    left: 15rpx;
+    width:30rpx;
+    height: 30rpx;
+    z-index: 300;
+}
+.subbtn{
+  margin-top: 5px;
+  
+}
+
+

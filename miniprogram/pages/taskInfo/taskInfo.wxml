@@ -9,6 +9,8 @@
     <van-field
       value="{{ task.yaoqiu }}"
    readonly
+   type="textarea"
+    autosize
     label="具体要求："   
   />
   <van-cell
@@ -20,8 +22,12 @@
   />
   </view>
   <view slot="footer">
-  <block wx:if="{{task.image}}">
-  <image src="{{task.image}}" bindtap="previewImage"></image>
-  </block>
   </view>
 </van-panel>
+<view>
+  <block wx:if="{{images}}"  wx:for="{{images}}" wx:key="{{index}}">
+   <view  data-index="{{index}}" bindtap="previewImage" bindlongpress="longpress">
+  <image src="{{item}}" mode="aspectFill"></image>
+  </view>
+  </block>
+</view>
