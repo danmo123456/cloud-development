@@ -22,7 +22,7 @@
 	},
 	"appid": "wxf6a993c3ffcd50ea",
 	"projectname": "Task",
-	"libVersion": "2.8.3",
+	"libVersion": "2.9.0",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",

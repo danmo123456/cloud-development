@@ -9,7 +9,18 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
   },
   onLoad: function (options) {
-    this.getData();
+    if (app.globalData.realName === '') {
+      tasks.where({
+        status: "end",
+      }).get().then(res => {
+        this.setData({
+          tasks: res.data,
+        })
+      })
+    } else {
+      this.getData();
+    }
+
   },
 
   //触底刷新

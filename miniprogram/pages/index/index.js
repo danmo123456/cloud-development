@@ -7,42 +7,31 @@ Page({
    tasks:[],
    active:'home',
    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-  createTaskopenid:''
+   createTaskopenid:''
   },
   //加载
 onLoad:function(options){
-  this.checkUser().then(res=>{
-   tasks.where({
-    status: "in-progress",
-     renyuan: _.all([app.globalData.realName]) 
-    //renyuan: app.globalData.realName
-  }).get().then(res => {
-    this.setData({
-      tasks: res.data,
-      
-    })
-  }) 
-  })
-  },
-  //检查是否有用户
-  async checkUser(){
-    //读取数据
-    const userInfos = await db.collection('userInfos').get();
-    console.log("打印用户信息",userInfos)
-    if(userInfos.data.length===0){
-      app.globalData.hasUser = false
-      return wx.redirectTo({
-        url: '../authorize/authorize',
+  if (app.globalData.realName === '') {
+    tasks.where({
+      status: "in-progress",
+    }).get().then(res => {
+      this.setData({
+        tasks: res.data,
       })
-    }
-    const userInfo = userInfos.data[0]
-    app.globalData.hasUser = true
-    app.globalData._openid = userInfo._openid
-    app.globalData.realName = userInfo.realName;
-    this.setData({
-      createTaskopenid: userInfo._openid
     })
+  } else {
+    tasks.where({
+      status: "in-progress",
+      renyuan: _.all([app.globalData.realName])
+    }).get().then(res => {
+      this.setData({
+        tasks: res.data,
+      })
+    })
+  }
   },
+
+ 
 //触底刷新
 onReachBottom:function(){
   this.getData();
@@ -50,16 +39,30 @@ onReachBottom:function(){
 
 //下拉刷新
 onPullDownRefresh:function(){
+  this.setData({
+    createTaskopenid:app.globalData._openid
+  })
+  if (app.globalData.realName === ''){
   tasks.where({
     status: "in-progress",
-    //renyuan: app.globalData.realName
-     renyuan: _.all([app.globalData.realName]) 
+  }).get().then(res => {
+    this.setData({
+      tasks: res.data,
+    })
+  }) 
+}else{
+  tasks.where({
+    status: "in-progress",
+    renyuan: _.all([app.globalData.realName])
   }).get().then(res => {
     this.setData({
       tasks: res.data
     })
     wx.stopPullDownRefresh();
   }) 
+}
+
+
 },
   //获取数据以及用户信息接口
   getData: function (callback) {

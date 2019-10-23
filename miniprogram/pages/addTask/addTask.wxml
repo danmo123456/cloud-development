@@ -13,7 +13,7 @@
     value="{{ renyuan }}"
     label="人员配置："
     required
-     placeholder="测试时请输入微信昵称"
+    placeholder="多名人员时请用空格隔开"
     bind:change="onRenYuanChange" 
   />
     <van-field
@@ -27,8 +27,6 @@
   />
 
 </van-cell-group>
-<!-- <van-divider contentPosition="center" customStyle="color: #1989fa;border-color: #1989fa;font-size: 18px;"></van-divider> -->
-
 <van-row>
   <van-col span="6"><van-button type="primary" bindclick='chooseLocation'>选择位置</van-button></van-col>
   <van-col span="18" ><van-cell value="{{locationObj.name}}"></van-cell></van-col>
@@ -45,7 +43,7 @@
 </van-col>
 </van-row>
 </view>
-
+<van-notify id="van-notify" />
 <view class="subbtn">
    <button type="primary" form-type="submit">提交</button>
   </view>

@@ -1,16 +1,37 @@
-<view class="container">
-<van-row >
-  <van-col span="4" offset="1" ><view class="ima"><open-data type="userAvatarUrl" ></open-data></view></van-col>
-  <van-col span="11" offset="2" ><open-data type="userNickName"></open-data></van-col>
-  <van-col span="8">
-  <van-row >
-  <view class="userName">
-  <van-col span="22" offset="2" ><open-data type="userProvince" lang="zh_CN"></open-data>-<open-data type="userCity" lang="zh_CN"></open-data></van-col>
-  </view>
-</van-row>
-</van-col>
-</van-row>
+<view class="userinfo" wx:if="{{!hasUserInfo && canIUse}}">
+    <image 
+    class="userinfo-avatar"
+    src="../../images/login/user-unlogin.png"
+     >
+    </image> 
+    <!-- <button  open-type="getUserInfo" 
+      bindgetuserinfo="onGetUserInfo" type="default" class="loginbtn">点击登录</button> -->
+     <van-button class="loginbtn" bind:click="toShow">
+     点击登录</van-button>
+      <!-- <van-dialog id="van-dialog" bind:confirm="confirm" bind:cancel="cancel" /> -->
+      <van-dialog
+  use-slot
+  title="您还未登录 请点击登录再进行操作"
+  show="{{ show }}"
+  show-cancel-button
+  confirm-button-open-type="getUserInfo"
+  bind:close="onClose"
+  cancelButtonText="暂不登录"
+  confirmButtonText="立即登录"
+  bind:getuserinfo="getUserInfo"
+>
+  <image src="../../images/tool/fire.png" />
+</van-dialog>
 </view>
+
+  <view class="userinfo" wx:else>
+    <button 
+      class="userinfo-avatar"
+      style="background-image: url({{avatarUrl}})"
+    ></button>
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </view>
+
 <van-cell
   icon="smile-o"
   is-link

@@ -4,12 +4,7 @@
   placeholder="请输入搜索关键词"
   bind:search="onSearch"
   bind:change="onSearchChange"
-  
 />
-<navigator url='/pages/addTask/addTask'>
-<!-- <van-icon name="add-o" class="addTask"  /> -->
-<button class="addTask">添加任务</button>
-</navigator>
 <van-cell-group >
 <block wx:for="{{tasks}}" wx:key="_id">
 <van-swipe-cell  id="swipe-cell" right-width="{{ 65 }}" left-width="{{createTaskopenid===item._openid?65:1}}" async-close bind:close="onClose" name="{{item._id}}" >

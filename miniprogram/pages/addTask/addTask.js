@@ -1,6 +1,7 @@
+const app = getApp();
 const db = wx.cloud.database();
 const tasks = db.collection('Tasks');
-
+import Notify from 'vant-weapp/notify/notify';
 Page({
 data:{
   title:'',
@@ -12,6 +13,47 @@ data:{
 pageData:{
 
 },
+
+  //加载
+  onLoad: function (options) {
+     this.checkUser();
+    // 查看是否授权
+    // wx.getSetting({
+    //   success(res) {
+    //     if (res.authSetting['scope.userInfo']) {
+    //       // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+    //       wx.getUserInfo({
+    //         success: function (res) {
+    //           console.log(res.userInfo)
+    //         }
+    //       })
+    //     }else{
+
+    //       Notify({ type: 'danger', message: '您还未登录，请先登录再进行操作' });
+    //       setTimeout(res=>{
+    //         wx.switchTab({
+    //           url: '../me/me',
+    //         })
+    //       },2000)
+       
+    //     }
+    //   }
+    // })
+  },
+
+  //检查是否有用户
+  async checkUser() {
+    //读取数据
+    const userInfos = await db.collection('userInfos').get();
+    console.log("打印用户信息", userInfos)
+    if (userInfos.data.length === 0) {
+      app.globalData.hasUser = false
+      return 
+    }
+  },
+
+
+
 chooseImage:function(e){
   console.log(e)
   const items = this.data.image
@@ -43,7 +85,6 @@ wx.chooseImage({
            longitude: res.longitude,
            name: res.name,
            address: res.address
-
          }
         // this.pageData.locationObj = locationObj
          this.setData({
@@ -62,66 +103,25 @@ wx.chooseImage({
 //点击提交任务信息
   submit: function (event) {
     console.log(event)
-    //添加图片
-    if (this.data.image){
-      const uploadTasks = this.data.image.map(item => this.uploadPhoto(item.src))
-
-
-      // wx.cloud.uploadFile({
-      //   cloudPath: `${Math.floor(Math.random() * 10000000)}.png`,
-      //   filePath: this.data.image.map(item => (item.src))
-      // })
-      Promise.all(uploadTasks).then(res => {
-        let imageList = []
-        console.log(res)
-        for (const p in res){
-          imageList.push(res[p].fileID)
-        }
-        console.log(imageList)
-        this.setData({
-          image: imageList
-        })
-        //添加任务
-        tasks.add({
-          data: {
-            title: this.data.title,
-            renyuan: this.data.renyuan,
-            yaoqiu: this.data.yaoqiu,
-            location: this.data.locationObj,
-            image: this.data.image,
-            status: "in-progress"
-          }
-        }).then(res => {
-          console.log(res);
-          wx.cloud.callFunction({
-            name: 'msgMe',
-            data: {
-              formId: event.detail.formId,
-              taskId: res._id
-            }
-          }).then(console.log)
-          wx.showToast({
-            title: '任务创建成功',
-            icon: 'success',
-            success: res2 => {
-              //成功之后情况输入框等信息
-              this.setData({
-                title: '',
-                renyuan: [],
-                yaoqiu: '',
-                locationObj: {},
-              })
-              //成功之后跳转到首页
-              wx.reLaunch({
-                url: '/pages/index/index'
-              })
-            }
-          })
-        })
-      }).catch(err => {
-        console.error(err)
-      });
-   }else{
+if(!this.data.title||!this.data.renyuan){
+  Notify({ type: 'danger', message: '任务名和人员配置为必填项！' });
+}else{
+  //添加图片
+  if (this.data.image) {
+    if(this.data.image.length>9){
+      Notify({ type: 'danger', message: '图片最多为九张！请长按删除适量图片' });
+    }else{
+    const uploadTasks = this.data.image.map(item => this.uploadPhoto(item.src))
+    Promise.all(uploadTasks).then(res => {
+      let imageList = []
+      console.log(res)
+      for (const p in res) {
+        imageList.push(res[p].fileID)
+      }
+      console.log(imageList)
+      this.setData({
+        image: imageList
+      })
       //添加任务
       tasks.add({
         data: {
@@ -129,6 +129,7 @@ wx.chooseImage({
           renyuan: this.data.renyuan,
           yaoqiu: this.data.yaoqiu,
           location: this.data.locationObj,
+          image: this.data.image,
           status: "in-progress"
         }
       }).then(res => {
@@ -150,8 +151,6 @@ wx.chooseImage({
               renyuan: [],
               yaoqiu: '',
               locationObj: {},
-              image: '',
-              imageList: []
             })
             //成功之后跳转到首页
             wx.reLaunch({
@@ -160,27 +159,71 @@ wx.chooseImage({
           }
         })
       })
-     
-   }
+    }).catch(err => {
+      console.error(err)
+    });
+    }
+  }else {
+    //添加任务
+    tasks.add({
+      data: {
+        title: this.data.title,
+        renyuan: this.data.renyuan,
+        yaoqiu: this.data.yaoqiu,
+        location: this.data.locationObj,
+        status: "in-progress"
+      }
+    }).then(res => {
+      console.log(res);
+      wx.cloud.callFunction({
+        name: 'msgMe',
+        data: {
+          formId: event.detail.formId,
+          taskId: res._id
+        }
+      }).then(console.log)
+      wx.showToast({
+        title: '任务创建成功',
+        icon: 'success',
+        success: res2 => {
+          //成功之后情况输入框等信息
+          this.setData({
+            title: '',
+            renyuan: [],
+            yaoqiu: '',
+            locationObj: {},
+            image: '',
+            imageList: []
+          })
+          //成功之后跳转到首页
+          wx.reLaunch({
+            url: '/pages/index/index'
+          })
+        }
+      })
+    })
+
+  }
+}
+ 
    
   
   },
 //title输入框内容
   onTitleChange: function (event) {
-    this.setData({
-      title: event.detail,
-  
-    });
+
+      this.setData({
+        title: event.detail,
+      });
+    
+     
    // console.log(this.data.title);
   },
   //人员输入框内容
   onRenYuanChange: function (event) {
     var sArr = event.detail.split(" ");
     this.data.renyuan=sArr
-    // this.setData({
-    //   renyuan: event.detail,
 
-    // });
   },
   //要求输入框的内容
   onYaoQiuChange: function (event) {

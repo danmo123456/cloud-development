@@ -4,7 +4,6 @@
     "pages/addTask/addTask",
     "pages/taskInfo/taskInfo",
     "pages/me/me",
-   "pages/authorize/authorize",
     "pages/finish/finish"
   ],
   "window": {
@@ -20,18 +19,16 @@
     "van-cell": "vant-weapp/cell",
     "van-cell-group": "vant-weapp/cell-group",
     "van-divider": "vant-weapp/divider",
-    "van-tabbar": "vant-weapp/tabbar",
-    "van-tabbar-item": "vant-weapp/tabbar-item",
     "van-panel": "vant-weapp/panel",
     "van-icon": "vant-weapp/icon",
     "van-row": "vant-weapp/row",
     "van-col": "vant-weapp/col",
     "van-swipe-cell": "vant-weapp/swipe-cell",
-    "van-dialog": "vant-weapp/dialog",
     "van-search": "vant-weapp/search",
-    "van-notice-bar": "/vant-weapp/notice-bar",
     "van-grid": "vant-weapp/grid",
-    "van-grid-item": "vant-weapp/grid-item"
+    "van-grid-item": "vant-weapp/grid-item",
+    "van-dialog": "/vant-weapp/dialog/index"
+   
   },
   "permission": {
     "scope.userLocation": {
@@ -46,6 +43,12 @@
         "selectedIconPath":"images/tabar/home/home-hou.png",
          "text":"首页"
       },
+        {
+          "pagePath": "pages/addTask/addTask",
+          "iconPath": "images/tabar/add/addto-qian.png",
+          "selectedIconPath": "images/tabar/add/addto-hou.png",
+          "text": "添加"
+        },
       {
         "pagePath": "pages/me/me",
         "iconPath": "images/tabar/me/me-qian.png",
