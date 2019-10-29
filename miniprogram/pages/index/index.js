@@ -11,12 +11,32 @@ Page({
   },
   //加载
 onLoad:function(options){
+  wx.showShareMenu({
+    withShareTicket: true,
+     success: function (res) {
+      // 分享成功
+      console.log('shareMenu share success')
+      console.log('分享' + res)
+    },
+    fail: function (res) {
+      // 分享失败
+      console.log(res)
+    }
+   
+  })
+  if (app.globalData.hasLogin) {
+    this.setData({
+      createTaskopenid: app.globalData._openid
+    })
+  }
   if (app.globalData.realName === '') {
     tasks.where({
       status: "in-progress",
+      title: "22"
     }).get().then(res => {
       this.setData({
         tasks: res.data,
+       
       })
     })
   } else {
@@ -39,12 +59,15 @@ onReachBottom:function(){
 
 //下拉刷新
 onPullDownRefresh:function(){
-  this.setData({
-    createTaskopenid:app.globalData._openid
-  })
+  if(app.globalData.hasLogin){
+    this.setData({
+      createTaskopenid: app.globalData._openid
+    })
+  }
   if (app.globalData.realName === ''){
   tasks.where({
     status: "in-progress",
+    title: "22"
   }).get().then(res => {
     this.setData({
       tasks: res.data,
@@ -127,16 +150,15 @@ pageData:{
         instance.close();
         break;
       case 'right':
-        wx.cloud.callFunction({
-          name:'updata',
-          data:{
-            taskId:event.detail.name
-          }
-        }).then(res=>{
-          instance.close()
-          this.onPullDownRefresh()
-        })
-       
+          wx.cloud.callFunction({
+            name: 'updata',
+            data: {
+              taskId: event.detail.name
+            }
+          }).then(res => {
+            instance.close()
+            this.onPullDownRefresh()
+          })
     }
   },
   //搜索（title）
@@ -161,8 +183,6 @@ pageData:{
       tasks.where({
         status: "in-progress",
         renyuan: _.all([app.globalData.realName])
-      
-        //renyuan: this.data.realName
       }).get().then(res => {
         this.setData({
           tasks: res.data

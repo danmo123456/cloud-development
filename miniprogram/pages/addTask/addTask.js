@@ -8,7 +8,18 @@ data:{
   renyuan:[],
   yaoqiu:'',
   image:[],
- //imageList:[]
+  show:false,
+  currentDate: new Date().getTime(),
+  minDate: new Date().getTime(),
+  formatter(type, value) {
+    if (type === 'year') {
+      return `${value}年`;
+    } else if (type === 'month') {
+      return `${value}月`;
+    }
+    return value;
+  }
+
 },
 pageData:{
 
@@ -17,30 +28,45 @@ pageData:{
   //加载
   onLoad: function (options) {
      this.checkUser();
-    // 查看是否授权
-    // wx.getSetting({
-    //   success(res) {
-    //     if (res.authSetting['scope.userInfo']) {
-    //       // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-    //       wx.getUserInfo({
-    //         success: function (res) {
-    //           console.log(res.userInfo)
-    //         }
-    //       })
-    //     }else{
-
-    //       Notify({ type: 'danger', message: '您还未登录，请先登录再进行操作' });
-    //       setTimeout(res=>{
-    //         wx.switchTab({
-    //           url: '../me/me',
-    //         })
-    //       },2000)
-       
-    //     }
-    //   }
-    // })
+     let Time = this.timestampToTime(new Date().getTime())
+     this.setData({
+       Time:Time
+     })
+  
   },
-
+  focus:function(){
+    this.setData({
+      show: true
+    })
+  },
+ onClose:function(){
+   this.setData({
+     show: false
+   })
+ },
+  onConfirm:function(event) {
+    console.log(event.detail)
+   let tt = this.timestampToTime(event.detail)
+    this.setData({
+      currentDate: event.detail,
+      Time:tt,
+      show: false
+    })
+  },
+  onCancel: function(){
+    this.setData({
+      show: false
+    })
+  },
+  //转换日期格式
+ timestampToTime:function(timestamp) {
+    var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+    var Y = date.getFullYear() + '-';
+    var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+    var D = date.getDate();
+    var creatDate = Y + M + D;
+    return creatDate ;
+  },
   //检查是否有用户
   async checkUser() {
     //读取数据
@@ -53,7 +79,7 @@ pageData:{
   },
 
 
-
+//选择图片
 chooseImage:function(e){
   console.log(e)
   const items = this.data.image
@@ -76,6 +102,8 @@ wx.chooseImage({
   },
 })
 },
+
+//选择地点
   chooseLocation:function(e){
      wx.chooseLocation({
        success:res=>{
@@ -130,17 +158,18 @@ if(!this.data.title||!this.data.renyuan){
           yaoqiu: this.data.yaoqiu,
           location: this.data.locationObj,
           image: this.data.image,
-          status: "in-progress"
+          status: "in-progress",
+          createDate:this.data.Time
         }
       }).then(res => {
         console.log(res);
-        wx.cloud.callFunction({
-          name: 'msgMe',
-          data: {
-            formId: event.detail.formId,
-            taskId: res._id
-          }
-        }).then(console.log)
+        // wx.cloud.callFunction({
+        //   name: 'msgMe',
+        //   data: {
+        //     formId: event.detail.formId,
+        //     taskId: res._id
+        //   }
+        // }).then(console.log)
         wx.showToast({
           title: '任务创建成功',
           icon: 'success',
@@ -171,17 +200,18 @@ if(!this.data.title||!this.data.renyuan){
         renyuan: this.data.renyuan,
         yaoqiu: this.data.yaoqiu,
         location: this.data.locationObj,
-        status: "in-progress"
+        status: "in-progress",
+        createDate: this.data.Time
       }
     }).then(res => {
       console.log(res);
-      wx.cloud.callFunction({
-        name: 'msgMe',
-        data: {
-          formId: event.detail.formId,
-          taskId: res._id
-        }
-      }).then(console.log)
+      // wx.cloud.callFunction({
+      //   name: 'msgMe',
+      //   data: {
+      //     formId: event.detail.formId,
+      //     taskId: res._id
+      //   }
+      // }).then(console.log)
       wx.showToast({
         title: '任务创建成功',
         icon: 'success',
@@ -268,10 +298,11 @@ if(!this.data.title||!this.data.renyuan){
           this.setData({
             image: image
           });
-          console.log("sss")
+          console.log("删除照片")
         
       }
     })
   }
+ 
 })
     

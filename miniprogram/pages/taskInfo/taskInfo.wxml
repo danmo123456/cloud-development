@@ -7,11 +7,16 @@
   
   />
     <van-field
-      value="{{ task.yaoqiu }}"
+    value="{{ task.yaoqiu }}"
    readonly
    type="textarea"
     autosize
     label="具体要求："   
+  />
+     <van-field
+    wx:if="{{task.createDate}}"
+     label="创建时间："  
+     value="{{ task.createDate }}"
   />
   <van-cell
     wx:if="{{task.location}}"

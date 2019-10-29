@@ -1,4 +1,4 @@
-<form bindsubmit="submit" report-submit="{{true}}">
+
 <van-cell-group>
   <van-field
     value="{{ title }}"
@@ -27,24 +27,51 @@
   />
 
 </van-cell-group>
-<van-row>
-  <van-col span="6"><van-button type="primary" bindclick='chooseLocation'>选择位置</van-button></van-col>
-  <van-col span="18" ><van-cell value="{{locationObj.name}}"></van-cell></van-col>
-</van-row>
-<view class="subbtn">
- <van-row>
-  <van-col span="6"><van-button  plain type="primary" bindtap="chooseImage">添加图片</van-button></van-col>
-  </van-row>
-   <van-row >
-  <van-col span="24">
+
+<van-cell title="创建时间：" value="{{Time}}" size="large" bind:click = "focus"/>
+ <van-cell
+    wx:if="{{locationObj}}"
+     title="位置："  
+     icon="location"
+     value="{{ locationObj.name }}"
+  />
+<van-popup
+  show="{{ show }}"
+  round
+  position="bottom"
+  bind:close="onClose"
+>
+<van-datetime-picker
+  type="date"
+  value="{{ currentDate }}"
+  bind:confirm="onConfirm"
+  bind:cancel = "onCancel"
+  min-date="{{ minDate }}"
+  formatter="{{ formatter }}"
+/>
+</van-popup>
+
+<van-row >
+  <van-col span="24" wx:if="{{image}}">
     <block wx:for="{{image}}" wx:for-item="image" wx:for-index="idx" wx:key="{{idx}}">
   <image  class="weui-uploader__img" src="{{image.src}}" data-src="{{image}}" bindtap="previewImage" data-index="{{idx}}" bindlongpress="longpress"></image>
-   </block>
+  </block>
 </van-col>
 </van-row>
-</view>
 <van-notify id="van-notify" />
-<view class="subbtn">
-   <button type="primary" form-type="submit">提交</button>
-  </view>
-</form>
+<van-row>
+  <van-col span="8"><van-button  plain round  type="primary" bindclick='chooseLocation'>选择位置</van-button></van-col>
+  <van-col span="8"><van-button  plain round  type="primary" bindtap="chooseImage">添加图片</van-button></van-col>
+  <van-col span="8"><van-button  plain round  type="primary" bindtap="submit">提交任务</van-button></van-col>
+</van-row>
+
+ 
+  
+
+  
+  
+ 
+
+
+
+

@@ -18,9 +18,7 @@
   value="内容"
     />
   </van-cell-group>
-
-  <view slot="right" >已完成</view>
-  
+    <view slot="right"  >已完成</view>
 </van-swipe-cell>
 </block>
 </van-cell-group>

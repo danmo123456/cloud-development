@@ -16,7 +16,8 @@ App({
         if (res.authSetting['scope.userInfo']) {
           wx.getUserInfo({
             success: res=> {
-              this.globalData.userInfo = res.userInfo
+              this.globalData.userInfo = res.userInfo;
+              this.globalData.hasLogin = true
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
@@ -28,7 +29,6 @@ App({
         }
       }
     })
-  
   },
 
   //检查是否有用户
@@ -39,9 +39,6 @@ App({
     console.log("appjs打印用户信息", userInfos)
     if (userInfos.data.length === 0) {
        return
-      // wx.switchTab({
-      //   url: '../me/me',
-      // })
     }
     const userInfo = userInfos.data[0]
     this.globalData.hasUser = true
@@ -56,6 +53,7 @@ App({
     userInfo: [],
     _openid :'',
     realName:'',
+    hasLogin:false
   } ,
   onChange: function (event) {
     this.setData({

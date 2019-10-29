@@ -1,5 +1,7 @@
 {
   "usingComponents": {
-  "van-notify": "vant-weapp/notify"
+  "van-notify": "vant-weapp/notify",
+  "van-datetime-picker": "vant-weapp/datetime-picker",
+    "van-popup": "vant-weapp/popup"
   }
 }

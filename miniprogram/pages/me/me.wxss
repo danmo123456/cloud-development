@@ -1,6 +1,6 @@
 
 page {
-  background: #f6f6f6;
+  background: rgba(228, 226, 223, 0.068);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -32,5 +32,8 @@ page {
 }
 .loginbtn{
  margin-left: -5rpx;
- border-radius: 60rpx
+ 
+}
+.title-class{
+  margin-left: -5px
 }

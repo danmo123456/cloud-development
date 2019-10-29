@@ -6,7 +6,7 @@
     </image> 
     <!-- <button  open-type="getUserInfo" 
       bindgetuserinfo="onGetUserInfo" type="default" class="loginbtn">点击登录</button> -->
-     <van-button class="loginbtn" bind:click="toShow">
+     <van-button class="loginbtn" round type="default" bind:click="toShow">
      点击登录</van-button>
       <!-- <van-dialog id="van-dialog" bind:confirm="confirm" bind:cancel="cancel" /> -->
       <van-dialog
@@ -16,6 +16,7 @@
   show-cancel-button
   confirm-button-open-type="getUserInfo"
   bind:close="onClose"
+  lang = "zh_CN"
   cancelButtonText="暂不登录"
   confirmButtonText="立即登录"
   bind:getuserinfo="getUserInfo"
@@ -33,9 +34,19 @@
     </view>
 
 <van-cell
-  icon="smile-o"
-  is-link
+  class="title-class"
+  
   title="已完成任务"
   link-type="navigateTo"
   url="/pages/finish/finish"
-/>
+>
+  <view slot="icon" >
+    <van-icon size="18px" name="smile-o" color="red" custom-style="text-align:center;vertical-align:center;margin-left:5px" />
+ </view>
+</van-cell>
+
+<van-button open-type="share" custom-style="width:100%;text-align:left;vertical-align:left;" icon="https://7461-task-szk7i-1300402907.tcb.qcloud.la/cloudbase/1572328547737-352.png" plain>邀请好友</van-button>
+
+
+
+
