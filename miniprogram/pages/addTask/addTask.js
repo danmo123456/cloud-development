@@ -24,7 +24,6 @@ data:{
 pageData:{
 
 },
-
   //加载
   onLoad: function (options) {
      this.checkUser();

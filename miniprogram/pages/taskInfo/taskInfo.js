@@ -24,7 +24,6 @@ Page({
         images:res.data.image
       })
     })
-   
   },
   //导航路径
   viewLocation:function(){

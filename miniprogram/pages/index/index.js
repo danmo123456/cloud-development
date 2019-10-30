@@ -11,19 +11,6 @@ Page({
   },
   //加载
 onLoad:function(options){
-  wx.showShareMenu({
-    withShareTicket: true,
-     success: function (res) {
-      // 分享成功
-      console.log('shareMenu share success')
-      console.log('分享' + res)
-    },
-    fail: function (res) {
-      // 分享失败
-      console.log(res)
-    }
-   
-  })
   if (app.globalData.hasLogin) {
     this.setData({
       createTaskopenid: app.globalData._openid
@@ -36,7 +23,6 @@ onLoad:function(options){
     }).get().then(res => {
       this.setData({
         tasks: res.data,
-       
       })
     })
   } else {
@@ -50,7 +36,22 @@ onLoad:function(options){
     })
   }
   },
+  onShareAppMessage: function () {
+    // 页面被用户分享时执行
+    wx.showShareMenu({
+      withShareTicket: true,
+      success: function (res) {
+        // 分享成功
+        console.log('shareMenu share success')
+        console.log('分享' + res)
+      },
+      fail: function (res) {
+        // 分享失败
+        console.log(res)
+      }
 
+    })
+  },
  
 //触底刷新
 onReachBottom:function(){

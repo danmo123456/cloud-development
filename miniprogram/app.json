@@ -50,6 +50,7 @@
           "text": "添加"
         },
       {
+        
         "pagePath": "pages/me/me",
         "iconPath": "images/tabar/me/me-qian.png",
         "selectedIconPath": "images/tabar/me/me-hou.png",

@@ -22,7 +22,6 @@ Page({
     }
 
   },
-
   //触底刷新
   onReachBottom: function () {
     this.getData();
